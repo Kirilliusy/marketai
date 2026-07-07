@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MarketAI
 
-## Getting Started
+AI-powered SaaS that generates marketplace product listings (Wildberries / Ozon / Amazon) from a short brief. Built solo, end to end — from the LLM prompt pipeline to auth, billing, and deployment.
 
-First, run the development server:
+**Live:** deployed on Vercel · **Stack:** Next.js 16 · TypeScript · Supabase · Claude (Anthropic SDK) · Stripe · YooKassa
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## What it does
+
+- **AI listing generation** — turns a product brief into a ready-to-publish marketplace card (title, description, bullets) using Claude via the Anthropic SDK.
+- **Try-before-signup demo** — a public demo endpoint lets visitors test generation before creating an account.
+- **Accounts & auth** — Supabase authentication with OAuth callback flow; personal dashboard per user.
+- **Dual billing** — subscription checkout through both **Stripe** (international) and **YooKassa** (Russian market), each with its own webhook handler.
+
+## Tech
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| AI | Claude — `@anthropic-ai/sdk` |
+| Data & Auth | Supabase (Postgres, Auth) |
+| Payments | Stripe + YooKassa (webhooks) |
+| Styling | Tailwind CSS v4 |
+| Hosting | Vercel |
+
+## Architecture
+
+```
+app/
+  api/
+    generate/       # Claude generation endpoint
+    demo/           # public demo generation
+    stripe/         # checkout + webhook
+    yookassa/       # checkout + webhook
+  auth/             # login + OAuth callback
+  dashboard/        # authed user area
+lib/                # Supabase, Claude, billing clients
+supabase/           # schema / migrations
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+cp .env.local.example .env.local   # fill in your keys
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Requires keys for Supabase, Anthropic, and Stripe/YooKassa (see `.env.local.example`).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Solo project — product, engineering, and deployment. Part of my portfolio: [more projects](https://github.com/kzhigalov-dev).*
