@@ -2,7 +2,7 @@
 
 AI-powered SaaS that generates marketplace product listings (Wildberries / Ozon / Amazon) from a short brief. Built solo, end to end — from the LLM prompt pipeline to auth, billing, and deployment.
 
-**Live:** deployed on Vercel · **Stack:** Next.js 16 · TypeScript · Supabase · Claude (Anthropic SDK) · Stripe · YooKassa
+**Live:** https://marketplace-saas-nine.vercel.app/· **Stack:** Next.js 16 · TypeScript · Supabase · Claude (Anthropic SDK) · Stripe · YooKassa
 
 ---
 
